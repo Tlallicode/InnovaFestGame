@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lobby</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <main class="contenedor-juego">
+
+    <header class="encabezado">
+      <h1>Mi Lobby</h1>
+      <p>Explora y descubre los minijuegos</p>
+    </header>
+
+    <section id="zona-juego">
+      <canvas id="lobby" width="960" height="540"></canvas>
+
+      <div id="interaccion" hidden>
+        <p id="nombre-minijuego">Minijuego disponible</p>
+        <button id="btn-jugar">Entrar al minijuego</button>
+      </div>
+    </section>
+
+    <footer>
+      Muévete con WASD o las flechas del teclado.
+    </footer>
+
+  </main>
+
+  <script src="lobby.js"></script>
+</body>
+</html>
