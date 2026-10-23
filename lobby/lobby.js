@@ -38,6 +38,18 @@ const jugador = {
 
 const teclas = {};
 
+const interaction = document.getElementById("interaccion");
+const nombreMinijuego = document.getElementById("nombre-minijuego");
+const btnJugar = document.getElementById("btn-jugar");
+
+const puertaMinijuegos = {
+  x: window.innerWidth / 2 - 20,
+  y: window.innerHeight / 2 + 130,
+  radio: 20
+};
+
+let menuMinijuegosAbierto = false;
+
 // Ajustar el juego al tamaño de la pantalla
 function ajustarPantalla() {
   canvas.width = window.innerWidth;
@@ -207,6 +219,21 @@ function actualizar() {
   }
 }
 
+function revisarPuertaMinijuegos() {
+  const distancia = Math.hypot(
+    jugador.x - puertaMinijuegos.x,
+    jugador.y - puertaMinijuegos.y
+  );
+  menuMinijuegosAbierto = distancia < puertaMinijuegos.radio;
+
+  if (menuMinijuegosAbierto) {
+    interaccion.hidden = false;
+    nombreMinijuego.textContent = "¡Elige un minijuego!";
+  } else {
+    interaccion.hidden = true;
+  }
+}
+
 
  // Dibujar el juego
 function dibujar() {
@@ -259,6 +286,7 @@ function dibujarOverlay() {
 function bucleJuego() {
   if (pixelesCaminos) {
     actualizar();
+    revisarPuertaMinijuegos();
   }
 
   dibujar();
@@ -299,4 +327,16 @@ window.addEventListener("resize", () => {
   if (pixelesCaminos) {
     buscarPosicionInicial();
   }
+});
+
+window.addEventListener("resize", () => {
+  ajustarPantalla();
+
+  if (pixelesCaminos) {
+    buscarPosicionInicial();
+  }
+});
+
+btnJugar.addEventListener("click", () => {
+  window.location.href = '../minigame-papalote/papalote.html';
 });
