@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Corre de la Mamá con Chancla!</title>
+
+    <!-- Tailwind CSS for UI overlay elements -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="flex flex-col items-center justify-center h-screen m-0 select-none">
+
+    <!-- Game Container -->
+<div id="game-container" class="relative w-full max-w-md h-[90vh] max-h-[800px] bg-slate-900 shadow-2xl overflow-hidden flex flex-col items-center">        <div class="absolute top-0 left-0 w-full z-20 bg-gradient-to-b from-slate-900/90 to-transparent p-3 flex justify-between items-center text-sm">
+            <div class="flex flex-col">
+                <span class="arcade-font text-xs text-amber-300">PUNTOS</span>
+                <span id="score-display" class="arcade-font text-lg text-white">0</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="arcade-font text-[10px] text-red-400">DISTANCIA MAMÁ</span>
+                <div class="w-24 h-3 bg-slate-700 rounded-full border border-red-500 overflow-hidden relative mt-1">
+                    <div id="mom-distance-bar" class="h-full bg-red-500 transition-all duration-200" style="width: 50%;"></div>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                <span class="arcade-font text-xs text-rose-400">VIDAS</span>
+                <div id="lives-display" class="text-xl flex space-x-1">❤️ ❤️ ❤️</div>
+            </div>
+        </div>
+
+        <!-- Canvas Game Renderer -->
+        <canvas id="gameCanvas" class="w-full h-full block cursor-pointer"></canvas>
+
+        <!-- Scanlines overlay -->
+        <div class="absolute inset-0 scanlines z-10"></div>
+
+        <!-- Start / Game Over Overlay Screen -->
+        <div id="menu-overlay" class="absolute inset-0 bg-black/85 z-30 flex flex-col items-center justify-center p-6 text-center backdrop-blur-sm transition-all duration-300">
+            <div class="animate-bounce mb-4 text-5xl">🩴💨👵</div>
+            <h1 class="arcade-font text-2xl md:text-3xl text-amber-400 mb-2 drop-shadow-[0_4px_0_rgba(0,0,0,1)]">¡CORRE DE LA MAMÁ!</h1>
+            <p id="menu-subtitle" class="text-slate-300 text-sm mb-6 max-w-xs">¡Te pilló jugando con el celular! Esquiva obstáculos, salta con la barra espaciadora o desliza, ¡y evita la chancla voladora!</p>
+            
+            <button id="start-btn" class="arcade-font bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-900 font-bold py-4 px-8 rounded-xl shadow-[0_6px_0_#b45309] active:shadow-[0_2px_0_#b45309] active:translate-y-1 transition-all text-sm">
+                ¡INICIAR HUÍDA!
+            </button>
+            <div class="mt-6 text-xs text-slate-400 space-y-1">
+                <p>💻 Controles PC: Flechas / A-D (Mover), Espacio (Salto)</p>
+                <p>📱 Controles Móvil: Botones en pantalla / Deslizar</p>
+            </div>
+        </div>
+
+        <!-- Mobile Controls Bar -->
+        <div id="mobile-controls" class="absolute bottom-4 left-0 w-full z-20 px-6 flex justify-between items-center md:hidden pointer-events-auto">
+            <div class="flex space-x-2">
+                <button id="btn-left" class="w-16 h-16 bg-slate-800/80 border-2 border-amber-400 rounded-full text-2xl active:bg-amber-500/50 flex items-center justify-center shadow-lg">⬅️</button>
+                <button id="btn-right" class="w-16 h-16 bg-slate-800/80 border-2 border-amber-400 rounded-full text-2xl active:bg-amber-500/50 flex items-center justify-center shadow-lg">➡️</button>
+            </div>
+            <button id="btn-jump" class="w-20 h-20 bg-gradient-to-r from-amber-500 to-orange-600 border-2 border-amber-300 rounded-full arcade-font text-xs font-bold text-slate-900 active:scale-95 flex items-center justify-center shadow-xl">SALTO</button>
+        </div>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>
