@@ -39,9 +39,10 @@
             const c = document.createElement('canvas');
             c.width = 64; c.height = 64;
             const context = c.getContext('2d');
-            context.fillStyle = bgColor;
-            context.fillRect(0, 0, 64, 64);
-            if (isBorder) {
+            if (bgColor !== null) {
+                context.fillStyle = bgColor;
+                context.fillRect(0, 0, 64, 64);
+            } else if (isBorder) {
                 context.fillStyle = '#ef4444'; // Red and white curbing
                 context.fillRect(0, 0, 16, 32);
                 context.fillRect(48, 32, 16, 32);
@@ -78,22 +79,24 @@
         const side3 = new Image(); side3.src = "../resources/side3.png";
         const side4 = new Image(); side4.src = "../resources/side4.png";
         const borderVariations = [side1, side2, side3, side4];
-        const imgRock = createTileImage('#334155', '🪨');
-        const imgBox = createTileImage('#334155', '📦');
-        const imgPuddle = createTileImage('#334155', '💧');
+        const imgRock = new Image(); imgRock.src = "../resources/oRock.png";
+        const imgBox = new Image(); imgBox.src = "../resources/oBox.png";
+        const imgPuddle = new Image(); imgPuddle.src = "../resources/oPuddle.png";
 
         // --- CUSTOM SPRITES ---
         // To use your own images, change the .src property below to your file path.
         // Example: imgPlayer.src = 'assets/my_player_sprite.png';
         const imgPlayer = new Image(); imgPlayer.src = "../resources/character.png"
         const imgMom = new Image(); imgMom.src = "../resources/characterM.png"
-        const imgSlipper = createTileImage('#a16207', '🩴'); 
+        const imgSlipper = new Image(); imgSlipper.src = "../resources/chancla.png"
+        
         
         // Game states
         let gameState = 'START';
         let score = 0;
+        let highScore = 0;
         let distance = 0; 
-        let speed = 4;
+        let speed = 6;
         let lives = 3;
         let frameCount = 0;
 
@@ -213,7 +216,7 @@
                     y: y,
                     vx: (Math.random() - 0.5) * 2,
                     vy: Math.random() * 2 + 1,
-                    radius: Math.random() * 4 + 2,
+                    radius: Math.random() * 4 + 3,
                     alpha: 0.8,
                     color: color
                 });
@@ -245,7 +248,7 @@
             gameState = 'PLAYING';
             score = 0;
             distance = 60;
-            speed = 2;
+            speed = 3;
             lives = 3;
             obstacles = [];
             particles = [];
@@ -265,8 +268,13 @@
             const overlay = document.getElementById('menu-overlay');
             overlay.style.display = 'flex';
             setTimeout(() => overlay.classList.remove('opacity-0', 'pointer-events-none'), 10);
-            document.getElementById('menu-subtitle').innerHTML = `¡Atrapado por mamá! Puntuación final: <b class="text-amber-400">${Math.floor(score)}</b>`;
+            document.getElementById('menu-subtitle').innerHTML = `¡Atrapado por mamá! Puntuación final: <b class="text-amber-400">${Math.floor(score)}</b></br>Puntuacion mas alta: <b class="text-red-400">${Math.floor(highScore)}</b>`;
             document.getElementById('start-btn').innerText = 'JUGAR DE NUEVO';
+            if (score > highScore) {
+                highScore = score
+                document.getElementById('menu-subtitle').innerHTML += `</br><b class="text-red-400">NUEVA PUNTUACION MAS ALTA!! </br> [${Math.floor(highScore)}]</b>`;
+
+            };
         }
 
         document.getElementById('start-btn').addEventListener('click', startGame);
@@ -280,7 +288,7 @@
 
             // Topar la velocidad máxima para evitar que sea nauseabundo
             if (speed < 9) { 
-                speed += 0.001;
+                speed += 0.002;
             }
 
             distance -= 0.03;
@@ -289,10 +297,11 @@
 
             if (lives <= 0) {
                 gameOver();
-                return;
+                return; 
             }
 
             document.getElementById('score-display').innerText = Math.floor(score);
+            document.getElementById('score-display').innerText += ` / ${Math.floor(highScore)}`;
             document.getElementById('mom-distance-bar').style.width = `${distance}%`;
             document.getElementById('lives-display').innerText = Array(3).fill('').map((_, i) => i < lives ? '❤️ ' : '🖤 ').join('');
 
@@ -355,7 +364,7 @@
                 let obs = obstacles[i];
                 obs.y += speed;
 
-                const canClearByJump = (obs.type === 'rock' || obs.type === 'puddle');
+                const canClearByJump = true;
                 const isOverObstacle = player.isJumping && player.jumpHeight < -20;
 
                 if (!obs.passed && obs.y > player.y + player.height) {
@@ -374,7 +383,7 @@
                         lives--;
                         distance = Math.max(0, distance - 20);
                         player.invulnerableTimer = 60;
-                        createDust(player.x, player.y, '#ef4444');
+                        createDust(player.x, player.y + player.height, '#e60000');
                         obstacles.splice(i, 1);
                         continue;
                     }
