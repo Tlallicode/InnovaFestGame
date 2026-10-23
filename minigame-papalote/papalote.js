@@ -10,9 +10,9 @@
     const COLLISION_GROUND_Y = GROUND_Y + 40;
     const COLLISION_CEILING_Y = -15;
     const SCROLL_SPEED = 1.8;
-    const GRAVITY = 0.05;
-    const FLAP_STRENGTH = -2.8;
-    const OBSTACLE_INTERVAL = 1500;
+    const GRAVITY = 0.12;
+    const FLAP_STRENGTH = -2.2;
+    const OBSTACLE_INTERVAL = 2000;
     const FRAME_DURATION = 1000 / 60;
     const HOUSE_SIZE = 210;
     const HOUSE_SPACING = 178;
@@ -23,8 +23,8 @@
     const POST_TOTAL_HEIGHT = 146;
     const TRAP_Y_OFFSET = 45;
     const SCORE_SPEED_START = 5;
-    const SCORE_SPEED_STEP = 5;
-    const MAX_SCORE_SPEED_BONUS = 0.35;
+    const SCORE_SPEED_STEP = 3;
+    const MAX_SCORE_SPEED_BONUS = 1.5;
     const imageSources = {
         playerA: '../resources/papalote.png',
         playerB: '../resources/papalote2.png',
@@ -271,9 +271,9 @@
             if (this.state !== 'playing') {
                 return;
             }
-            this.scrollSpeed = SCROLL_SPEED + Math.min(
-                Math.max(this.score - SCORE_SPEED_START + 1, 0) / SCORE_SPEED_STEP * 0.05,
-                MAX_SCORE_SPEED_BONUS
+            this.scrollSpeed = Math.min(
+                this.scrollSpeed + 0.005,
+                20
             );
             this.background.update(this.scrollSpeed);
             this.player.update();

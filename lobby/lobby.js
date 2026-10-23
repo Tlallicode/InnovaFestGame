@@ -161,8 +161,6 @@ function buscarPosicionInicial() {
     }
   }
 
-  // Si no encuentra caminos negros, colocar el jugador al centro.
-  // Habrá que revisar la máscara si ocurre esto.
   jugador.x = canvas.width / 2;
   jugador.y = canvas.height / 2;
 }
