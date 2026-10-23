@@ -208,6 +208,9 @@
             this.background = new Background();
             this.obstacles = [];
             this.score = 0;
+            this.bestScore = Number(
+                localStorage.getItem('papaloteBestScore') || 0
+            )
             this.state = 'ready';
             this.lastObstacleTime = 0;
             this.lastTimestamp = 0;
@@ -297,6 +300,16 @@
                 this.elapsedSinceScore %= 1000;
             }
 
+            //Guardar el record
+            if (this.score > this.bestScore) {
+                this.bestScore = this.score;
+
+                localStorage.setItem(
+                    'papaloteBestScore',
+                    this.bestScore
+                );
+            }
+
             if (this.player.y < COLLISION_CEILING_Y ||
                 this.player.y + this.player.height > COLLISION_GROUND_Y ||
                 this.obstacles.some((obstacle) => this.intersects(this.player.getBounds(), obstacle.getBounds()))) {
@@ -329,6 +342,7 @@
             context.fillStyle = '#fff';
             context.font = 'bold 24px Arial';
             context.fillText(`Puntos: ${this.score}`, 30, 49);
+            context.fillText(`Récord: ${this.bestScore}`, 30, 77);
         }
 
         drawMessage(title, subtitle) {
