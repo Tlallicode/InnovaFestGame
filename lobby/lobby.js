@@ -40,7 +40,8 @@ const teclas = {};
 
 const interaction = document.getElementById("interaccion");
 const nombreMinijuego = document.getElementById("nombre-minijuego");
-const btnJugar = document.getElementById("btn-jugar");
+const btnPapalote = document.getElementById("btn-papalote");
+const btnRunChancla = document.getElementById("btn-runchancla");
 
 const puertaMinijuegos = {
   x: window.innerWidth / 2 - 20,
@@ -137,32 +138,8 @@ function puedeMoverse(x, y) {
 
 // Buscar automáticamente un punto de inicio sobre un camino
 function buscarPosicionInicial() {
-  const paso = 8;
-
-  for (
-    let distancia = 0;
-    distancia < Math.max(canvas.width, canvas.height);
-    distancia += paso
-  ) {
-    for (let y = canvas.height / 2 - distancia;
-         y <= canvas.height / 2 + distancia;
-         y += paso) {
-
-      for (let x = canvas.width / 2 - distancia;
-           x <= canvas.width / 2 + distancia;
-           x += paso) {
-
-        if (puedeMoverse(x, y)) {
-          jugador.x = x;
-          jugador.y = y;
-          return;
-        }
-      }
-    }
-  }
-
-  jugador.x = canvas.width / 2;
-  jugador.y = canvas.height / 2;
+  jugador.x = canvas.width * 0.4;
+  jugador.y = canvas.height * 0.73;
 }
 
 // Detectar teclas
@@ -335,6 +312,10 @@ window.addEventListener("resize", () => {
   }
 });
 
-btnJugar.addEventListener("click", () => {
+btnPapalote.addEventListener("click", () => {
   window.location.href = '../minigame-papalote/papalote.html';
+});
+
+btnRunChancla.addEventListener("click", () => {
+  window.location.href = '../minigame-runlachancla/runchancla.html';
 });

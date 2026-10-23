@@ -232,6 +232,7 @@
                 }
                 if (this.state === 'ready') {
                     this.state = 'playing';
+                    document.getElementById('lobby-btn').style.display = 'none';
                 }
                 this.player.flap();
             };
@@ -245,6 +246,7 @@
             this.background = new Background();
             this.obstacles = [];
             this.score = 0;
+            document.getElementById('lobby-btn').style.display = 'none';
             this.state = 'playing';
             this.lastObstacleTime = 0;
             this.elapsedSinceScore = 0;
@@ -314,6 +316,7 @@
                 this.player.y + this.player.height > COLLISION_GROUND_Y ||
                 this.obstacles.some((obstacle) => this.intersects(this.player.getBounds(), obstacle.getBounds()))) {
                 this.state = 'gameover';
+                document.getElementById('lobby-btn').style.display = 'block';
             }
         }
 
@@ -367,6 +370,10 @@
             requestAnimationFrame((nextTimestamp) => this.loop(nextTimestamp));
         }
     }
+
+    document.getElementById("lobby-btn").addEventListener("click", () => {
+        window.location.href = "../lobby/index.html";
+    });
 
     new Game();
 })();

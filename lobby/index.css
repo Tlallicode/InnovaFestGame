@@ -76,21 +76,53 @@ body {
   color: #ffe2b5;
 }
 
-#btn-jugar {
+/* Estilo para los botones de los minijuegos */
+#btn-papalote,
+#btn-runchancla {
+  display: inline-block;
+  margin: 5px;
   padding: 12px 22px;
-  border: none;
-  border-radius: 6px;
+
+  border: 2px solid #c28b55;
+  border-radius: 8px;
+
   background: #a84f32;
   color: #fff5e7;
-  font-size: 16px;
+
+  font-size: 15px;
   font-weight: bold;
+  font-family: Arial, sans-serif;
+
   cursor: pointer;
+  box-shadow: 0 3px 6px #0005;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-#btn-jugar:hover {
+/* Efecto al pasar el mouse */
+#btn-papalote:hover,
+#btn-runchancla:hover {
   background: #c46a43;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px #0006;
 }
 
+/* Efecto al presionar */
+#btn-papalote:active,
+#btn-runchancla:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px #0005;
+}
+
+/* Borde visible al navegar con teclado */
+#btn-papalote:focus-visible,
+#btn-runchancla:focus-visible {
+  outline: 3px solid #ffe2b5;
+  outline-offset: 3px;
+}
 footer {
   position: absolute;
   z-index: 2;

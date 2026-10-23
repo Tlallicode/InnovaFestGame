@@ -45,3 +45,27 @@ body {
     font-size: clamp(0.8rem, 2vw, 1rem);
     text-shadow: 1px 1px 3px #172b4d;
 }
+
+
+#lobby-btn {
+    display: none;
+    position: fixed;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    padding: 12px 22px;
+    background-color: #2563eb;
+    color: white;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#lobby-btn {
+    background-color: #1d4ed8;
+    transform: translate(-50%, -50%) scale(1.05);
+}
